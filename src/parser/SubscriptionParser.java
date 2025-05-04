@@ -7,6 +7,7 @@ package parser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import org.json.JSONTokener;
@@ -15,34 +16,41 @@ import java.util.List;
 
 public class SubscriptionParser extends GeneralParser {
 
-    private List<Subscription> subscriptions = new ArrayList<>();
+    private JSONArray subscriptionArray = null;
 
     @Override
     public void parse(String path) {
         try {
             // Lee archivo JSON usando FileReader y JSONTokener
             FileReader reader = new FileReader("config/subscription.json");
-            JSONArray subscriptionArray = new JSONArray(new JSONTokener(reader));
-            for (int i = 0; i < subscriptionArray.length(); i++) {
-                JSONObject subscription = subscriptionArray.getJSONObject(i);
+            this.subscriptionArray = new JSONArray(new JSONTokener(reader));
 
-                // Leer datos del objeto JSON
-                String url = subscription.getString("url");
-                String urlType = subscription.getString("urlType");
-
-                System.out.println("URL: " + url);
-                System.out.println("URL Type: " + urlType);
-                subscriptions.add(new Subscription(url, urlType));
-            }
-            reader.close();
-        } catch (IOException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("Error al parsear el archivo JSON: " + e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.err.println("Archivo no encontrado: " + e.getMessage());
         }
     }
 
-    public List<Subscription> getSubscriptions() {
-        return subscriptions;
+    // Getters
+    public JSONObject gJson(int i) {
+        if (this.subscriptionArray == null) {
+            throw new FileNotFoundException("Json no encontrado");
+        }
+        return this.subscriptionArray.getJSONObject(i);
+    }
+
+    public String gURL(JSONObject json) {
+        return json.getString("url");
+    }
+
+    public String gURLtype(JSONObject json) {
+        return json.getString("urlType");
+    }
+
+    public String gDownload(JSONObject json) {
+        return json.getString("Download");
+    }
+
+    public JSONObject gURLparams(JSONObject json) {
+        return json.getJSONObject("UrlParams");
     }
 }
