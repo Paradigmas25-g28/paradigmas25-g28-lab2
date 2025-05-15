@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!-- 1) Coordenadas del proyecto -->
+  <modelVersion>4.0.0</modelVersion>                                 <!-- Esto es la version de maven -->
+  <groupId>GrupoParadigmas</groupId>
+  <artifactId>lab-2-paradigmas</artifactId>                          <!-- Nombre del artefacto?? -->
+  <version>1.0.0</version>                                           <!-- Version del proyecto -->
+
+  <!-- 2) Dependencias -->
+  <dependencies>
+    <!-- JUnit para tests, muy bobina -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- org.json, lo descarga de internet (repo de maven) y lo guarda en ~/.m2 --> 
+    <dependency>
+      <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+      <version>20200518</version>
+    </dependency>
+  </dependencies>
+</project>
