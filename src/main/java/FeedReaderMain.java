@@ -18,10 +18,12 @@ public class FeedReaderMain {
             for (int i = 0; i < parser.getLength(); i++) {
                 System.out.println(parser.getSingleSubscription(i).toString());
             }
+            // hacer logica de armado de url con cada parametro y llamar a su httpRequester
+            // INFO: Llamar al httpRequester para obtenr el feed del servidor
+
+            // INFO: Llamar al Parser especifico para extrar los datos necesarios por la
+            // aplicacion
             /*
-             * Llamar al httpRequester para obtenr el feed del servidor
-             * Llamar al Parser especifico para extrar los datos necesarios por la
-             * aplicacion
              * Llamar al constructor de Feed
              * LLamar al prettyPrint del Feed para ver los articulos del feed en forma
              * legible y amigable para el usuario
