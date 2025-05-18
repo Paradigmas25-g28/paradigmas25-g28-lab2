@@ -62,12 +62,11 @@ public class RedditParser extends JsonParser {
     subscriptionParser.parse("config/subscriptions.json");
 
     SingleSubscription redditSubscription = null;
-    // Buscar una suscripción de tipo Reddit
     for (int i = 0; i < subscriptionParser.getLength(); i++) {
         SingleSubscription currentSub = subscriptionParser.getSingleSubscription(i);
         if ("reddit".equalsIgnoreCase(currentSub.getUrlType())) {
             redditSubscription = currentSub;
-            break; // Encontramos una, salimos del bucle
+            break; 
         }
     }
 
@@ -78,13 +77,11 @@ public class RedditParser extends JsonParser {
 
     httpRequester requester = new httpRequester();
 
-    // Usar la suscripción de Reddit encontrada
     String urlFormat = redditSubscription.getUrl();
-    String topic = redditSubscription.getUrlParams().get(0); // Tomamos el primer parámetro de esa suscripción
+    String topic = redditSubscription.getUrlParams().get(0); 
     String urlFinal = String.format(urlFormat, topic);
     System.out.println("Usando URL de Reddit: " + urlFinal);
 
-    // Asumiendo que tienes este método en httpRequester y funciona para Reddit
     File jsonFile = requester.getFeedRedditToFile(urlFinal); 
 
     if (jsonFile == null || !jsonFile.exists()) {
