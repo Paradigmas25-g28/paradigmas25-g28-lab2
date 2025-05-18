@@ -58,26 +58,50 @@ public class RedditParser extends JsonParser {
   }
 
   public static void main(String[] args) {
-    SubscriptionParser parser = new SubscriptionParser();
-    parser.parse("config/subscriptions.json");
+    SubscriptionParser subscriptionParser = new SubscriptionParser();
+    subscriptionParser.parse("config/subscriptions.json");
+
+    SingleSubscription redditSubscription = null;
+    // Buscar una suscripción de tipo Reddit
+    for (int i = 0; i < subscriptionParser.getLength(); i++) {
+        SingleSubscription currentSub = subscriptionParser.getSingleSubscription(i);
+        if ("reddit".equalsIgnoreCase(currentSub.getUrlType())) {
+            redditSubscription = currentSub;
+            break; // Encontramos una, salimos del bucle
+        }
+    }
+
+    if (redditSubscription == null) {
+        System.err.println("No se encontró ninguna suscripción de tipo 'reddit' en config/subscriptions.json");
+        return;
+    }
 
     httpRequester requester = new httpRequester();
 
-    String urlFormat = parser.getSingleSubscription(0).getUrl();
-    String topic = parser.getSingleSubscription(0).getUrlParams(0);
+    // Usar la suscripción de Reddit encontrada
+    String urlFormat = redditSubscription.getUrl();
+    String topic = redditSubscription.getUrlParams().get(0); // Tomamos el primer parámetro de esa suscripción
     String urlFinal = String.format(urlFormat, topic);
-    System.out.println(urlFinal);
+    System.out.println("Usando URL de Reddit: " + urlFinal);
 
-    System.out.println(requester.getFeedRedditToFile(urlFinal));
+    // Asumiendo que tienes este método en httpRequester y funciona para Reddit
+    File jsonFile = requester.getFeedRedditToFile(urlFinal); 
 
-    File file = requester.getFeedRedditToFile(urlFinal);
+    if (jsonFile == null || !jsonFile.exists()) {
+        System.err.println("No se pudo descargar o encontrar el archivo JSON del feed de Reddit.");
+        return;
+    }
 
-    RedditParser redditparser = new RedditParser();
-    redditparser.parse(file.getPath());
+    RedditParser redditParser = new RedditParser();
+    redditParser.parse(jsonFile.getPath());
 
-    // Imprimo lo que me devuelve RedditParser
-
-    for (Article xArticle : redditparser.getArticles())
-      xArticle.prettyPrint();
+    if (redditParser.getArticles() != null) {
+        System.out.println("Artículos parseados desde Reddit: " + redditParser.getArticles().size());
+        for (Article xArticle : redditParser.getArticles()) {
+            xArticle.prettyPrint();
+        }
+    } else {
+        System.out.println("El parsing de Reddit falló o no se encontraron artículos.");
+    }
   }
 }
