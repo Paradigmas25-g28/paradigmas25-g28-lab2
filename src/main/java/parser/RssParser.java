@@ -133,7 +133,5 @@ public class RssParser extends GeneralParser {
 
     for (Article xArticle : rssparser.getArticles())
       xArticle.prettyPrint();
-
   }
-
 }

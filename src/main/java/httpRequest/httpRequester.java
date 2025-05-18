@@ -73,7 +73,7 @@ public class httpRequester {
     }
   }
 
-  public File getFeedReeditToFile(String urlFeed) {
+  public File getFeedRedditToFile(String urlFeed) {
     File tempFile = null;
     try {
       URI uri = new URI(urlFeed);
