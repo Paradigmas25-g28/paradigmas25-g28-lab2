@@ -24,6 +24,7 @@ public class JsonParser extends GeneralParser {
             this.jsonarray = new JSONArray(new JSONTokener(reader));
         } catch (FileNotFoundException e) {
             System.err.println("Archivo no encontrado: " + e.getMessage());
+            this.jsonarray = new JSONArray();
         }
     }
 

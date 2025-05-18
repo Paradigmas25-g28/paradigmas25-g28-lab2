@@ -14,69 +14,95 @@ import java.net.URI;
  * */
 
 public class httpRequester {
-	
-	public File getFeedRssToFile(String urlFeed) {
-        File tempFile = null;
-        try {
-            URI uri = new URI(urlFeed);
-            URL url = uri.toURL();
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String inputLine;
-            StringBuilder content = new StringBuilder();
+  public File getFeedRssToFile(String urlFeed) {
+    File tempFile = null;
+    try {
+      URI uri = new URI(urlFeed);
+      URL url = uri.toURL();
+      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+      conn.setRequestMethod("GET");
 
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine).append("\n");
-            }
-            in.close();
-            conn.disconnect();
+      BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+      String inputLine;
+      StringBuilder content = new StringBuilder();
 
-            // Crear archivo temporal
-            tempFile = File.createTempFile("feed_", ".xml");
-            tempFile.deleteOnExit();
+      while ((inputLine = in.readLine()) != null) {
+        content.append(inputLine).append("\n");
+      }
+      in.close();
+      conn.disconnect();
 
-            // Escribir contenido en archivo
-            try (FileWriter writer = new FileWriter(tempFile)) {
-                writer.write(content.toString());
-            }
+      // Crear archivo temporal
+      tempFile = File.createTempFile("feed_", ".xml");
+      tempFile.deleteOnExit();
 
-        } catch (Exception e) {
-            System.err.println("Error al obtener el feed: " + e.getMessage());
-        }
-        return tempFile;
+      // Escribir contenido en archivo
+      try (FileWriter writer = new FileWriter(tempFile)) {
+        writer.write(content.toString());
+      }
+
+    } catch (Exception e) {
+      System.err.println("Error al obtener el feed: " + e.getMessage());
     }
+    return tempFile;
+  }
 
-    public File getFeedReeditToFile(String urlFeed) {
-        File tempFile = null;
-        try {
-            URI uri = new URI(urlFeed);
-            URL url = uri.toURL();
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+  public String getFeedRssToString(String urlFeed) {
+    try {
+      URI uri = new URI(urlFeed);
+      URL url = uri.toURL();
+      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+      conn.setRequestMethod("GET");
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String inputLine;
-            StringBuilder content = new StringBuilder();
+      BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+      String inputLine;
+      StringBuilder content = new StringBuilder();
 
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine).append("\n");
-            }
-            in.close();
-            conn.disconnect();
+      while ((inputLine = in.readLine()) != null) {
+        content.append(inputLine).append("\n");
+      }
+      in.close();
+      conn.disconnect();
 
-            tempFile = File.createTempFile("feed_reedit_", ".json");
-            tempFile.deleteOnExit();
+      return content.toString();
 
-            try (FileWriter writer = new FileWriter(tempFile)) {
-                writer.write(content.toString());
-            }
-
-        } catch (Exception e) {
-            System.err.println("Error al obtener el feed: " + e.getMessage());
-        }
-        return tempFile;
+    } catch (Exception e) {
+      System.err.println("Error al obtener el feed: " + e.getMessage());
+      return "";
     }
+  }
+
+  public File getFeedReeditToFile(String urlFeed) {
+    File tempFile = null;
+    try {
+      URI uri = new URI(urlFeed);
+      URL url = uri.toURL();
+      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+      conn.setRequestMethod("GET");
+      conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+
+      BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+      String inputLine;
+      StringBuilder content = new StringBuilder();
+
+      while ((inputLine = in.readLine()) != null) {
+        content.append(inputLine).append("\n");
+      }
+      in.close();
+      conn.disconnect();
+
+      tempFile = File.createTempFile("feed_reedit_", ".json");
+      tempFile.deleteOnExit();
+
+      try (FileWriter writer = new FileWriter(tempFile)) {
+        writer.write(content.toString());
+      }
+
+    } catch (Exception e) {
+      System.err.println("Error al obtener el feed: " + e.getMessage());
+    }
+    return tempFile;
+  }
+
 }
