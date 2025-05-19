@@ -50,8 +50,6 @@ public class NamedEntity {
 	public void prettyPrint(){
 		System.out.println(this.getName() + " " + this.getFrequency());
 	}
-	
-	
 }
 
 
