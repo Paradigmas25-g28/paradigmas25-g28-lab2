@@ -1,4 +1,4 @@
-package namedEntity.category;
+package namedEntity.category.product;
 
 import namedEntity.NamedEntity;
 

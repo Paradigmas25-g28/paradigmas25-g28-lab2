@@ -1,4 +1,4 @@
-package namedEntity.category
+package namedEntity.category.other;
 
 import namedEntity.NamedEntity;
 

@@ -1,9 +1,11 @@
-package namedEntity.category;
+package namedEntity.category.organization;
 
 import namedEntity.NamedEntity;
 
 public class Organization extends NamedEntity{
-    
+    protected Integer numeromiembros;
+    protected String formacanonica;
+    protected String tipoorganizacion;
     public Organization(String name, String category, int frequency, String formacanonica, Integer numeromiembros,
             String tipoorganizacion) {
         super(name, category, frequency);
@@ -11,9 +13,6 @@ public class Organization extends NamedEntity{
         this.numeromiembros = numeromiembros;
         this.tipoorganizacion = tipoorganizacion;
     }
-    protected String formacanonica;
-    protected Integer numeromiembros;
-    protected String tipoorganizacion;
     public String getFormacanonica() {
         return formacanonica;
     }

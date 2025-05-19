@@ -1,4 +1,4 @@
-package namedEntity.category;
+package namedEntity.category.date;
 
 import namedEntity.NamedEntity;
 
