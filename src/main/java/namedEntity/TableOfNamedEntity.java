@@ -31,31 +31,28 @@ public class TableOfNamedEntity {
   private static List<String> ListKeys = Arrays.asList(
       "NamedEntity",
       "Person",
-      "LastName",
-      "Name",
-      "Title",
       "Place",
-      "Pais",
-      "Ciudad",
-      "Direction",
-      "Other",
+      "Other Category",
       "Company",
       "Product",
       "Event",
       "Date",
       "Topic",
+      "Other Topic",
       "Sports",
       "Football",
       "Basketball",
       "Tennis",
       "Formula1",
-      "Other",
+      "Other Sport",
       "Culture",
       "Film",
       "Music",
+      "Other Culture",
       "Politics",
       "National Politics",
-      "International Politics");
+      "International Politics",
+      "Other Politics");
 
   public void InitialiceTable() {
     for (String elem : ListKeys) {

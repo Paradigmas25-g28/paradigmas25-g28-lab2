@@ -1,12 +1,12 @@
-package namedEntity.category.other;
+package namedEntity.category.otherCategory;
 
 import namedEntity.NamedEntity;
 
-public class Other extends NamedEntity{
+public class OtherCategory extends NamedEntity{
     protected String comentarios;
     
-    public Other(String name, String category, String topic, int frequency, String comentarios) {
-        super(name, category, topic, frequency);
+    public OtherCategory(String name, String topic, int frequency, String comentarios) {
+        super(name, "Other Category", topic, frequency);
         this.comentarios = comentarios;
     }
 

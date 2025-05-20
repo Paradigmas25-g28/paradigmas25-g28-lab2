@@ -1,9 +1,9 @@
 package namedEntity.category.place;
 
 
-public class Other {
+public class OtherPlace {
     protected String comentarios;
-    public Other(String comentarios) {
+    public OtherPlace(String comentarios) {
         this.comentarios = comentarios;
     }
 
