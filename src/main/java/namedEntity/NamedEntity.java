@@ -5,13 +5,15 @@ package namedEntity;
 
 public class NamedEntity {
 	String name;
-	String category; 
+	String category;
+	String topic;
 	int frequency;
 	
-	public NamedEntity(String name, String category, int frequency) {
+	public NamedEntity(String name, String category, String topic, int frequency) {
 		super();
 		this.name = name;
 		this.category = category;
+		this.topic = topic;
 		this.frequency = frequency;
 	}
 
@@ -28,6 +30,14 @@ public class NamedEntity {
 	}
 
 	public void setCategory(String name) {
+		this.name = name;
+	}
+
+	public String getTopic() {
+		return name;
+	}
+
+	public void setTopic(String name) {
 		this.name = name;
 	}
 

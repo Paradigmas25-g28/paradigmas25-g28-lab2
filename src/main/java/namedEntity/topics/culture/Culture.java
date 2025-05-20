@@ -1,10 +1,9 @@
 package namedEntity.topics.culture;
 
-import namedEntity.Topic;
+import namedEntity.topics.Topics;
 
-public class Culture extends Topic{
-    public Culture() {
-        super();
-        setTopic("Culture");
+public class Culture extends Topics{
+    public Culture(String name, String category, String topic, int frecuency){
+        super(name, category, topic, frecuency);
     }
 }
