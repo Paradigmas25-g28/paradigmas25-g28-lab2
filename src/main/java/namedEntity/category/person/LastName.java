@@ -1,14 +1,10 @@
 package namedEntity.category.person;
 
-import namedEntity.category.Person;
 
-public class LastName extends Person{
+public class LastName {
     protected String formacanonica;
     protected String origen;
-    
-    public LastName(String name, String category, int frequency, String idpersona, String formacanonica,
-            String origen) {
-        super(name, category, frequency, idpersona);
+    public LastName(String formacanonica, String origen) {
         this.formacanonica = formacanonica;
         this.origen = origen;
     }
@@ -24,4 +20,5 @@ public class LastName extends Person{
     public void setOrigen(String origen) {
         this.origen = origen;
     }
+    
 }

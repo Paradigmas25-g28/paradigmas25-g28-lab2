@@ -1,18 +1,10 @@
 package namedEntity.category.place;
 
-import namedEntity.category.Place;
 
-public class Ciudad extends Place {
-    protected String capital;
-    protected Integer poblacion;
+public class Ciudad {
     protected String pais;
-    public Ciudad(String name, String category, int frequency, String pais, String ciudad, String direccion,
-            String otro, String capital, Integer poblacion, String pais2) {
-        super(name, category, frequency, pais, ciudad, direccion, otro);
-        this.capital = capital;
-        this.poblacion = poblacion;
-        pais = pais2;
-    }
+    protected Integer poblacion;
+    protected String capital;
     public String getCapital() {
         return capital;
     }
@@ -29,6 +21,11 @@ public class Ciudad extends Place {
         return pais;
     }
     public void setPais(String pais) {
+        this.pais = pais;
+    }
+    public Ciudad(String capital, Integer poblacion, String pais) {
+        this.capital = capital;
+        this.poblacion = poblacion;
         this.pais = pais;
     }
     

@@ -1,12 +1,9 @@
 package namedEntity.category.place;
 
-import namedEntity.category.Place;
 
-public class Other extends Place{
+public class Other {
     protected String comentarios;
-    public Other(String name, String category, int frequency, String pais, String ciudad, String direccion, String otro,
-            String comentarios) {
-        super(name, category, frequency, pais, ciudad, direccion, otro);
+    public Other(String comentarios) {
         this.comentarios = comentarios;
     }
 
@@ -17,5 +14,5 @@ public class Other extends Place{
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
     }
-
+    
 }
