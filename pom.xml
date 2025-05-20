@@ -27,6 +27,11 @@
       <artifactId>json</artifactId>
       <version>20200518</version>
     </dependency>
+    <dependency>
+      <groupId>com.jakewharton.fliptables</groupId>
+      <artifactId>fliptables</artifactId>
+      <version>1.1.1</version>
+    </dependency>
   </dependencies>
 
   <!-- OPCIONALMENTE, puedes ser más explícito con la configuración del plugin -->

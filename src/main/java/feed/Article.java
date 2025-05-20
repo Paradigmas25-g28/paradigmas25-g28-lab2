@@ -93,6 +93,10 @@ public class Article {
     }
   }
 
+  public List<NamedEntity> getListArticles() {
+    return this.namedEntityList;
+  }
+
   public void prettyPrint() {
     String RESET = AnsiColors.RESET;
     String BLUE = AnsiColors.BLUE;
