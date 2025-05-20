@@ -36,7 +36,7 @@ public class Topic {
     }
 
     public void incFrequency() {
-        this.frequency++;
+        this.frequency = this.frequency +1;
     }
 
     @Override

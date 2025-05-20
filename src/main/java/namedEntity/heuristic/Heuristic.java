@@ -1,8 +1,7 @@
 package namedEntity.heuristic;
 
-import static java.util.Map.entry;
-
 import java.util.Map;
+import static java.util.Map.entry;
 
 import namedEntity.NamedEntity;
 import namedEntity.category.company.Company;
@@ -46,10 +45,10 @@ public abstract class Heuristic {
   static Direction d_Russia = (null);
 
   public static Map<String, NamedEntity> categoryMap = Map.ofEntries(
-      entry("Microsft", new Company("Microsoft", "Other", 0, "microsoft", 0, "tech")),
-      entry("Apple", new Company("Apple", "Other", 0, "apple", 0, "tech")),
-      entry("Google", new Company("Google", "Other", 0, "google", 0, "tech")),
-      entry("Musk", new Person("Musk", "Other", 0, "", n_musk, ln_musk, t_musk)),
+      entry("Microsft", new Company("Microsoft", "Other Topic", 0, "microsoft", 0, "tech")),
+      entry("Apple", new Company("Apple", "Other Topic", 0, "apple", 0, "tech")),
+      entry("Google", new Company("Google", "Other Topic", 0, "google", 0, "tech")),
+      entry("Musk", new Person("Musk", "Other Topic", 0, "", n_musk, ln_musk, t_musk)),
       entry("Biden", new Person("Biden", "International Politics", 0, "", n_biden, ln_biden, t_biden)),
       entry("Trump", new Person("Trump", "International Politics", 0, "", n_trump, ln_trump, t_trump)),
       entry("Messi", new Person("Messi", "Football", 0, "", n_messi, ln_messi, t_messi)),

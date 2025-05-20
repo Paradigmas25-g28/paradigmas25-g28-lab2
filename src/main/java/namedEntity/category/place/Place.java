@@ -7,9 +7,9 @@ public class Place extends NamedEntity {
   protected Pais pais;
   protected Ciudad ciudad;
   protected Direction direction;
-  protected Other other;
+  protected OtherPlace other;
 
-  public Place(String name, String topic, int frequency, Pais pais, Ciudad ciudad, Direction direction, Other otro) {
+  public Place(String name, String topic, int frequency, Pais pais, Ciudad ciudad, Direction direction, OtherPlace otro) {
     super(name, "Place", topic, frequency);
     this.pais = pais;
     this.ciudad = ciudad;
@@ -41,11 +41,11 @@ public class Place extends NamedEntity {
     this.direction = direction;
   }
 
-  public Other getOther() {
+  public OtherPlace getOther() {
     return other;
   }
 
-  public void setOher(Other other) {
+  public void setOher(OtherPlace other) {
     this.other = other;
   }
 }
