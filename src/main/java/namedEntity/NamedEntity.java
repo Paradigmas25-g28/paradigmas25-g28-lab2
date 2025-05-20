@@ -8,7 +8,7 @@ public class NamedEntity {
   String topic;
   Integer frequency;
 
-  public NamedEntity(String name, String category, String topic, int frequency) {
+  public NamedEntity(String name, String category, String topic, Integer frequency) {
     super();
     this.name = name;
     this.category = category;
@@ -25,19 +25,19 @@ public class NamedEntity {
   }
 
   public String getCategory() {
-    return name;
+    return category;
   }
 
   public void setCategory(String name) {
-    this.name = name;
+    this.category = name;
   }
 
   public String getTopic() {
-    return name;
+    return topic;
   }
 
   public void setTopic(String name) {
-    this.name = name;
+    this.topic = name;
   }
 
   public Integer getFrequency() {
