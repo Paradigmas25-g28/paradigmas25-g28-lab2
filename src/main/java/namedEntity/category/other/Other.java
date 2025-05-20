@@ -2,11 +2,11 @@ package namedEntity.category.other;
 
 import namedEntity.NamedEntity;
 
-public class OtroNamed extends NamedEntity{
+public class Other extends NamedEntity{
     protected String comentarios;
     
-    public OtroNamed(String name, String category, int frequency, String comentarios) {
-        super(name, category, frequency);
+    public Other(String name, String category, String topic, int frequency, String comentarios) {
+        super(name, category, topic, frequency);
         this.comentarios = comentarios;
     }
 

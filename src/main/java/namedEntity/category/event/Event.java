@@ -8,8 +8,8 @@ public class Event extends NamedEntity{
     protected String fecha;
     protected Boolean recurrente;
     
-    public Event(String name, String category, int frequency, String formacanonica, String fecha, Boolean recurrente) {
-        super(name, category, frequency);
+    public Event(String name, String topic, int frequency, String formacanonica, String fecha, Boolean recurrente) {
+        super(name, "Event", topic, frequency);
         this.formacanonica = formacanonica;
         this.fecha = fecha;
         this.recurrente = recurrente;

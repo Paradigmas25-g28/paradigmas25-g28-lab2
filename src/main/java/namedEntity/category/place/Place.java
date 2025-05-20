@@ -4,39 +4,40 @@ import namedEntity.NamedEntity;
 
 public class Place extends NamedEntity{
    
-    protected String pais;
-    protected String ciudad;
-    protected String direccion;
-    protected String otro;
-    public Place(String name, String category, int frequency, String pais, String ciudad, String direccion, String otro) {
-        super(name, category, frequency);
+    protected Pais pais;
+    protected Ciudad ciudad;
+    protected Direction direction;
+    protected Other other;
+    
+    public Place(String name, String topic, int frequency, Pais pais, Ciudad ciudad, Direction direction, Other otro) {
+        super(name, "Place", topic, frequency);
         this.pais = pais;
         this.ciudad = ciudad;
-        this.direccion = direccion;
+        this.direction = direction;
         this.otro = otro;
     }
-    public String getPais() {
+    public Pais getPais() {
         return pais;
     }
-    public void setPais(String pais) {
+    public void setPais(Pais pais) {
         this.pais = pais;
     }
-    public String getCiudad() {
+    public Ciudad getCiudad() {
         return ciudad;
     }
-    public void setCiudad(String ciudad) {
+    public void setCiudad(Ciudad ciudad) {
         this.ciudad = ciudad;
     }
-    public String getDireccion() {
-        return direccion;
+    public Direction getDirection() {
+        return direction;
     }
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setDireccion(Direction direction) {
+        this.direction = direction;
     }
-    public String getOtro() {
-        return otro;
+    public Other getOther() {
+        return other;
     }
-    public void setOtro(String otro) {
-        this.otro = otro;
+    public void setOher(Other other) {
+        this.other = other;
     }
 }

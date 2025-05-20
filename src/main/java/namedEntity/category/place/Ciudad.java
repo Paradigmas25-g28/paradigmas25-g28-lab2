@@ -5,6 +5,13 @@ public class Ciudad {
     protected String pais;
     protected Integer poblacion;
     protected String capital;
+
+    public Ciudad(String capital, Integer poblacion, String pais) {
+        this.capital = capital;
+        this.poblacion = poblacion;
+        this.pais = pais;
+    }
+
     public String getCapital() {
         return capital;
     }
@@ -21,11 +28,6 @@ public class Ciudad {
         return pais;
     }
     public void setPais(String pais) {
-        this.pais = pais;
-    }
-    public Ciudad(String capital, Integer poblacion, String pais) {
-        this.capital = capital;
-        this.poblacion = poblacion;
         this.pais = pais;
     }
     

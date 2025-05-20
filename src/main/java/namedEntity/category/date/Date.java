@@ -8,8 +8,8 @@ public class Date extends NamedEntity{
     protected String precisa;
 
     
-    public Date(String name, String category, int frequency, String formacanonica, String precisa) {
-        super(name, category, frequency);
+    public Date(String name, String topic, int frequency, String formacanonica, String precisa) {
+        super(name, "Date", topic, frequency);
         this.formacanonica = formacanonica;
         this.precisa = precisa;
     }

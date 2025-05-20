@@ -72,7 +72,7 @@ public class Article {
     }
     return null;
   }
-
+  
   public void computeNamedEntities(Heuristic h) {
     String text = this.getTitle() + " " + this.getText();
 

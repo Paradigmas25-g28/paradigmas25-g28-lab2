@@ -2,13 +2,13 @@ package namedEntity.category.organization;
 
 import namedEntity.NamedEntity;
 
-public class Organization extends NamedEntity{
+public class Company extends NamedEntity{
     protected Integer numeromiembros;
     protected String formacanonica;
     protected String tipoorganizacion;
-    public Organization(String name, String category, int frequency, String formacanonica, Integer numeromiembros,
+    public Company(String name, String topic, int frequency, String formacanonica, Integer numeromiembros,
             String tipoorganizacion) {
-        super(name, category, frequency);
+        super(name, "Company", topic, frequency);
         this.formacanonica = formacanonica;
         this.numeromiembros = numeromiembros;
         this.tipoorganizacion = tipoorganizacion;

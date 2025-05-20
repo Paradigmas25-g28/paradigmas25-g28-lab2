@@ -5,8 +5,8 @@ import namedEntity.NamedEntity;
 public class Product extends NamedEntity{
     protected  Boolean comercial;
     protected String productor;
-    public Product(String name, String category, int frequency, Boolean comercial, String productor) {
-        super(name, category, frequency);
+    public Product(String name, String topic, int frequency, Boolean comercial, String productor) {
+        super(name, "Product", topic, frequency);
         this.comercial = comercial;
         this.productor = productor;
     }
