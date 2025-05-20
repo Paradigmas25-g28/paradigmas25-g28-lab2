@@ -8,6 +8,7 @@ import feed.Feed;
 import namedEntity.heuristic.*;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class TableOfNamedEntity {
@@ -21,10 +22,39 @@ public class TableOfNamedEntity {
     this.table = new HashMap<String, Integer>();
   }
 
+  private static List<String> ListKeys = Arrays.asList(
+      "NamedEntity",
+      "persona",
+      "apellido",
+      "nombre",
+      "título",
+      "lugar",
+      "país",
+      "ciudad",
+      "dirección",
+      "otro",
+      "organización",
+      "producto",
+      "evento",
+      "fecha",
+      "tema",
+      "deportes",
+      "fútbol",
+      "básquet",
+      "tenis",
+      "fórmula 1",
+      "otros",
+      "cultura",
+      "cine",
+      "música",
+      "política",
+      "nacional",
+      "internacional");
+
   public void InitialiceTable() {
-    table.put("NamedEntity", 0);
-    // INFO: hacer lo que queda con persona,deportes, y todos los topics y
-    // categorys;
+    for (String elem : ListKeys) {
+      table.put(elem, 0);
+    }
   }
 
   public void TheRealFunction(Feed feed, Heuristic hh) {
