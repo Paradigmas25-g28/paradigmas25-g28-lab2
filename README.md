@@ -15,6 +15,9 @@ Además, se agrega una funcionalidad a nuestro lector para computar heurísticam
 Comenzar este proyecto nos fue muy complicado ya que no estabamos familiarizados con Java, ni con el paradigma orientado a objetos.  
 Primero establecimos las bases del parser en la clase GeneralParser, y a medida que avanzamos en el proyecto decidimos reestructurarlo y creamos una subclase JsonParser, para no repetir implementaciones en SubscriptionParser y RedditParser.  
 Este luego se relaciona con el httpRequester al momento de realizar el pedido del feed al servidor de noticias, tomando una url y devolviendo el contenido del feed. Para lograrlo utilizamos paquetes de java.io y java.net.  
+Para organizar la jerarquia de clases de las entidades nombradas, utilizamos herencia en su gran mayoria, exceptuando las clases que derivarian de Person y Place, que decidimos que sean atributos de estas implementandolas como clases POJO. Asi cada persona tiene su propio ID y al mismo tiempo un Name (que contiene su forma canonica, alternativa y su origen), un LastName (que contiene su forma canonica y su origen), y un Title (que contiene su forma canonica y un booleano si es profesional o no). Lo mismo sucede con la clase Place y sus respectivos atributos.  
+Luego para   
+
 
 
 ## Observaciones 
