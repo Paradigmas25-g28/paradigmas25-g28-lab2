@@ -8,6 +8,7 @@ import httpRequest.httpRequester;
 import namedEntity.TableOfNamedEntity;
 import namedEntity.heuristic.QuickHeuristic;
 import namedEntity.heuristic.RandomHeuristic;
+import parser.RedditParser;
 import parser.RssParser;
 import parser.SubscriptionParser;
 import subscription.SingleSubscription;
@@ -21,102 +22,19 @@ public class FeedReaderMain {
 
   public static void main(String[] args) {
     System.out.println("************* FeedReader version 1.0 *************");
+
     if (args.length == 0) {
 
-      // INFO: Leer el archivo de suscription por defecto;
-      SubscriptionParser parser = new SubscriptionParser();
-      parser.parse("config/subscriptions.json");
+      List<Feed> feedl = feedsFromSubscriptions("config/subscriptions.json");
 
-      // INFO: Llamar al httpRequester para obtenr el feed del servidor
-      httpRequester requester = new httpRequester();
-
-      QuickHeuristic qh = new QuickHeuristic();
-      List<Feed> feedl = new ArrayList<Feed>();
-      for (SingleSubscription subscription : parser.getSubscriptions()) {
-        // INFO: Llamar al Parser especifico para extrar los datos necesarios por la
-        // aplicacion
-        if (subscription.getUrlType().equalsIgnoreCase("rss")) {
-          String urlFormat = subscription.getUrl();
-
-          for (String topic : subscription.getUrlParams()) {
-            try {
-              String finalUrl = String.format(urlFormat, topic);
-
-              System.out.println("Descargando RSS desde: " + finalUrl);
-              File rssXml = requester.getFeedRssToFile(finalUrl);
-
-              RssParser rssParser = new RssParser();
-              rssParser.parse(rssXml.getPath());
-
-              String siteName = subscription.getUrlType().toUpperCase() + " - " + topic;
-
-              // INFO: Llamar al constructor de Feed
-              Feed feed = new Feed(siteName);
-
-              for (Article article : rssParser.getArticles()) {
-                feed.addArticle(article);
-              }
-
-              feedl.add(feed);
-
-              // INFO: LLamar al prettyPrint del Feed para ver los articulos del feed en forma
-              // legible y amigable para el usuario
-              for (Feed xfeed : feedl) {
-                xfeed.prettyPrint();
-              }
-
-            } catch (Exception e) {
-              System.err.println("Error al procesar el feed RSS para el topic: " + topic);
-              e.printStackTrace();
-            }
-          }
-        }
+      for (Feed xfeed : feedl) {
+        xfeed.prettyPrint();
       }
+
 
     } else if (args.length == 1) {
 
-      // INFO: Leer el archivo de suscription por defecto;
-      SubscriptionParser parser = new SubscriptionParser();
-      parser.parse("config/subscriptions.json");
-
-      // INFO: Llamar al httpRequester para obtenr el feed del servidor
-      httpRequester requester = new httpRequester();
-
-      List<Feed> feedl = new ArrayList<Feed>();
-      for (SingleSubscription subscription : parser.getSubscriptions()) {
-        // INFO: Llamar al Parser especifico para extrar los datos necesarios por la
-        // aplicacion
-        if (subscription.getUrlType().equalsIgnoreCase("rss")) {
-          String urlFormat = subscription.getUrl();
-
-          for (String topic : subscription.getUrlParams()) {
-            try {
-              String finalUrl = String.format(urlFormat, topic);
-
-              System.out.println("Descargando RSS desde: " + finalUrl);
-              File rssXml = requester.getFeedRssToFile(finalUrl);
-
-              RssParser rssParser = new RssParser();
-              rssParser.parse(rssXml.getPath());
-
-              String siteName = subscription.getUrlType().toUpperCase() + " - " + topic;
-
-              // INFO: Llamar al constructor de Feed
-              Feed feed = new Feed(siteName);
-
-              for (Article article : rssParser.getArticles()) {
-                feed.addArticle(article);
-              }
-
-              feedl.add(feed);
-
-            } catch (Exception e) {
-              System.err.println("Error al procesar el feed RSS para el topic: " + topic);
-              e.printStackTrace();
-            }
-          }
-        }
-      }
+      List <Feed> feedl = feedsFromSubscriptions("config/subscriptions.json");
 
       // INFO: Llamar a la heuristica para que compute las entidades nombradas de cada
       // articulos del feed
@@ -133,55 +51,14 @@ public class FeedReaderMain {
       }
 
     } else if (args.length == 2) {
-      // INFO: Leer el archivo de suscription por defecto;
-      SubscriptionParser parser = new SubscriptionParser();
-      parser.parse("config/subscriptions.json");
-
-      // INFO: Llamar al httpRequester para obtenr el feed del servidor
-      httpRequester requester = new httpRequester();
-
-      List<Feed> feedl = new ArrayList<Feed>();
-      for (SingleSubscription subscription : parser.getSubscriptions()) {
-        // INFO: Llamar al Parser especifico para extrar los datos necesarios por la
-        // aplicacion
-        if (subscription.getUrlType().equalsIgnoreCase("rss")) {
-          String urlFormat = subscription.getUrl();
-
-          for (String topic : subscription.getUrlParams()) {
-            try {
-              String finalUrl = String.format(urlFormat, topic);
-
-              System.out.println("Descargando RSS desde: " + finalUrl);
-              File rssXml = requester.getFeedRssToFile(finalUrl);
-
-              RssParser rssParser = new RssParser();
-              rssParser.parse(rssXml.getPath());
-
-              String siteName = subscription.getUrlType().toUpperCase() + " - " + topic;
-
-              // INFO: Llamar al constructor de Feed
-              Feed feed = new Feed(siteName);
-
-              for (Article article : rssParser.getArticles()) {
-                feed.addArticle(article);
-              }
-
-              feedl.add(feed);
-
-            } catch (Exception e) {
-              System.err.println("Error al procesar el feed RSS para el topic: " + topic);
-              e.printStackTrace();
-            }
-          }
-        }
-      }
+      
+      List<Feed> feedl = feedsFromSubscriptions("config/subscriptions.json");
 
       // INFO: Llamar a la heuristica para que compute las entidades nombradas de cada
       // articulos del feed
       if (args[1].equals("-qh")) {
         QuickHeuristic qh = new QuickHeuristic();
-        List<Feed> feedlpapa = feedl;
-        for (Feed feed : feedlpapa) {
+        for (Feed feed : feedl) {
 
           TableOfNamedEntity tablita = new TableOfNamedEntity();
           tablita.TheRealFunction(feed, qh);
@@ -192,8 +69,7 @@ public class FeedReaderMain {
         }
       } else if (args[1].equals("-rh")) {
         RandomHeuristic rh = new RandomHeuristic();
-        List<Feed> feedlpapa = feedl;
-        for (Feed feed : feedlpapa) {
+        for (Feed feed : feedl) {
 
           TableOfNamedEntity tablita = new TableOfNamedEntity();
           tablita.TheRealFunction(feed, rh);
@@ -212,4 +88,73 @@ public class FeedReaderMain {
     }
   }
 
+  private static List<Feed> feedsFromSubscriptions(String Path) {
+
+    List<Feed> feeds = new ArrayList<>();
+    // INFO: Leer el archivo de suscription por defecto;
+    SubscriptionParser parser = new SubscriptionParser();
+    parser.parse(Path);
+
+    // INFO: Llamar al httpRequester para obtenr el feed del servidor
+    httpRequester requester = new httpRequester();
+
+    for (SingleSubscription subscription : parser.getSubscriptions()) {
+      // INFO: Llamar al Parser especifico para extrar los datos necesarios por la
+      // aplicacion
+      String urlType = subscription.getUrlType().toLowerCase();
+
+      for (String topic : subscription.getUrlParams()) {
+        try {
+
+          if (urlType.equals("rss")) {
+            String urlFormat = subscription.getUrl();
+            String finalUrl = String.format(urlFormat, topic);
+
+            System.out.println("Descargando RSS desde: " + finalUrl);
+            File rssXml = requester.getFeedRssToFile(finalUrl);
+
+            RssParser rssParser = new RssParser();
+            rssParser.parse(rssXml.getPath());
+
+            String siteName = subscription.getUrlType().toUpperCase() + " - " + topic;
+
+            // INFO: Llamar al constructor de Feed
+            Feed feed = new Feed(siteName);
+
+            for (Article article : rssParser.getArticles()) {
+              feed.addArticle(article);
+            }
+
+            feeds.add(feed);
+
+          } else if (urlType.equals("reddit")) {
+            String urlFormat = subscription.getUrl();
+            String finalUrl = String.format(urlFormat, topic);
+
+            System.out.println("Descargando Reddit desde: " + finalUrl);
+            File rssXml = requester.getFeedRssToFile(finalUrl);
+
+            RedditParser redditParser = new RedditParser();
+            redditParser.parse(rssXml.getPath());
+
+            String siteName = subscription.getUrlType().toUpperCase() + " - " + topic;
+
+            // INFO: Llamar al constructor de Feed
+            Feed feed = new Feed(siteName);
+
+            for (Article article : redditParser.getArticles()) {
+              feed.addArticle(article);
+            }
+
+            feeds.add(feed);
+          }
+        } catch (Exception e) {
+          System.err.println("Error al procesar el feed Reddit para el topic: " + topic);
+          e.printStackTrace();
+        }
+      }
+    }     
+    return feeds;
+  }
 }
+
