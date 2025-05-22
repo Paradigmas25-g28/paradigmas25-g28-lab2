@@ -1,4 +1,4 @@
-package namedEntity.topic.sports;
+package namedEntity.topics.sports;
 
 import namedEntity.topics.sports.Sports;
 

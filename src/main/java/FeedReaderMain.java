@@ -39,8 +39,7 @@ public class FeedReaderMain {
       // INFO: Llamar a la heuristica para que compute las entidades nombradas de cada
       // articulos del feed
       QuickHeuristic qh = new QuickHeuristic();
-      List<Feed> feedlpapa = feedl;
-      for (Feed feed : feedlpapa) {
+      for (Feed feed : feedl) {
 
         TableOfNamedEntity tablita = new TableOfNamedEntity();
         tablita.TheRealFunction(feed, qh);
