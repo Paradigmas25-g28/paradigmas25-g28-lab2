@@ -1,6 +1,7 @@
 package namedEntity;
 
 import utils.Tripla;
+import utils.AnsiColors;
 
 import java.util.List;
 
@@ -115,57 +116,91 @@ public class TableOfNamedEntity {
 
                     table.put(category, table.get(category) + frequency);
                     table.put(topic, table.get(topic) + frequency);
-
+                        
                     Tripla triplaNeT = new Tripla(name, topic, frequency.toString());
                     Tripla triplaNeC = new Tripla(name, category, frequency.toString());
 
                     dataTableCategory.add(triplaNeC);
                     dataTableTopic.add(triplaNeT);
 
-                    System.err.println("NAME -> " + name);
-                    System.err.println("FREQ -> " + frequency);
-                    System.err.println(category);
-
-                    System.err.println("Tabla[" + category + "] : "
-                            + table.get(category).toString());
-                    System.err.println(topic);
-                    System.err.println("Tabla[" + topic + "] : " + table.get(topic).toString());
-                    System.err.println("----------------------------------------------------------------------");
+                    // System.err.println("NAME -> " + name);
+                    // System.err.println("FREQ -> " + frequency);
+                    // System.err.println(category);
+                    // System.err.println("Tabla[" + category + "] : "
+                    //         + table.get(category).toString());
+                    // System.err.println(topic);
+                    // System.err.println("Tabla[" + topic + "] : " + table.get(topic).toString());
+                    // System.err.println("----------------------------------------------------------------------");
                 }
             }
         }
     }
 
-    public void prettyPrint() {
-        String[] cat_h = {"Name", "Category", "Frecuency"};
-        String[] top_h = {"Name", "Topic", "Frecuency"};
 
-        String[][] cat_d = new String[dataTableCategory.size()][3];
-        String[][] top_d = new String[dataTableTopic.size()][3];
+    public void prettyPrint() {
+
+        /* Para cada feed, imprime una tabla con las entidades nombradas de cada articulo, y su frecuencia en el articulo.*/
+        String[] t_headers = { "Category", "Name", "Topic", "Frequency" };
+        Object[][] t_data = new Object[dataTableCategory.size()][4];
+
+        Integer n = 0;
+        for (Tripla trip_t : dataTableTopic) {
+
+            t_data[n][1] = trip_t.getFirst();
+            t_data[n][2] = trip_t.getSecond();
+            t_data[n][3] = trip_t.getThird();
+            n++;
+        }
+        Integer m = 0;
+        for (Tripla trip_c : dataTableCategory) {
+            t_data[m][0] = trip_c.getSecond();
+            m++;
+        }
+
+        System.out.println(FlipTableConverters.fromObjects(t_headers, t_data));
+
+        /* Para cada feed, imprime una tabla con la frecuencia de cada category y de cada topic.*/
+
+        // Topic
+        String[] top_h = {"Topic", "Frequency"};
+        String[][] top_d = new String[TopKeys.size()][2];
 
         Integer i = 0;
-        for (Tripla trip_t : dataTableTopic) {
-            top_d[i][0] = trip_t.getFirst();
-            top_d[i][1] = trip_t.getSecond();
-            top_d[i][2] = trip_t.getThird();
+        for (String top : TopKeys) {
+            Integer freq_top = 0;
+            for (Tripla trip_t : dataTableTopic) {
+                if ((trip_t.getSecond()).equals(top)){
+                    freq_top = freq_top + (Integer.parseInt(trip_t.getThird()));
+                }
+            }
+            top_d[i][0] = top;
+            top_d[i][1] = freq_top.toString();
             i++;
         }
         String top_t = FlipTable.of(top_h, top_d);
 
+        // Tabla de categorías
+        String[] cat_h = {"Category", "Frequency"};
+        String[][] cat_d = new String[CatKeys.size()][2];
+
         Integer j = 0;
-        for (Tripla trip_c : dataTableCategory) {
-            cat_d[j][0] = trip_c.getFirst();
-            cat_d[j][1] = trip_c.getSecond();
-            cat_d[j][2] = trip_c.getThird();
+        for (String cat : CatKeys) {
+            Integer freq_cat = 0;
+            for (Tripla trip_c : dataTableCategory) {
+                if ((trip_c.getSecond()).equals(cat)){
+                    freq_cat = freq_cat + (Integer.parseInt(trip_c.getThird()));
+                }
+            }
+            cat_d[j][0] = cat;
+            cat_d[j][1] = freq_cat.toString();
             j++;
         }
-
         String cat_t = FlipTable.of(cat_h, cat_d);
-        String[] headers = {"Category", "Topic"};
+
+        String[] headers = {"Categories", "Topics"};
         String[][] data = {{cat_t, top_t}};
 
         System.out.println(FlipTableConverters.fromObjects(headers, data));
-
     }
 
     public static void main(String[] args) {
