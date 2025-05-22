@@ -15,10 +15,16 @@ Además, se agrega una funcionalidad a nuestro lector para computar heurísticam
 Comenzar este proyecto nos fue muy complicado ya que no estabamos familiarizados con Java, ni con el paradigma orientado a objetos.  
 Primero establecimos las bases del parser en la clase GeneralParser, y a medida que avanzamos en el proyecto decidimos reestructurarlo y creamos una subclase JsonParser, para no repetir implementaciones en SubscriptionParser y RedditParser.  
 Este luego se relaciona con el httpRequester al momento de realizar el pedido del feed al servidor de noticias, tomando una url y devolviendo el contenido del feed. Para lograrlo utilizamos paquetes de java.io y java.net.  
-Para organizar la jerarquia de clases de las entidades nombradas, utilizamos herencia en su gran mayoria, exceptuando las clases que derivarian de Person y Place, que decidimos que sean atributos de estas implementandolas como clases POJO. Asi cada persona tiene su propio ID y al mismo tiempo un Name (que contiene su forma canonica, alternativa y su origen), un LastName (que contiene su forma canonica y su origen), y un Title (que contiene su forma canonica y un booleano si es profesional o no). Lo mismo sucede con la clase Place y sus respectivos atributos.  
-Luego para   
+Para organizar la jerarquia de clases de las entidades nombradas, utilizamos herencia en su gran mayoria, exceptuando las clases que derivarian de Person y Place, que decidimos que sean atributos de estas implementandolas como clases POJO. Asi cada persona tiene su propio ID y al mismo tiempo un Name (que contiene su forma canonica, alternativa y su origen), un LastName (que contiene su forma canonica y su origen), y un Title (que contiene su forma canonica y un booleano si es profesional o no). Lo mismo sucede con la clase Place y sus respectivos atributos.    
+Luego para poder aplicar estos cambios en nuestro proyecto, hubo que modificar el archivo Heuristic, reemplazando el Map<String, String> por Map<String, NamedEntity>, con variables estaticas para facilitar la creacion de estas nuevas NamedEntity.  
+Con el fin de imprimir de forma amigable la informacion al usuario, se creo un nuevo archivo llamado TableOfNamedEntity, el cual se encarga de mostrar por pantalla la cantidad de ocurrencias de ciertas entidades especificando su topico y categoria. Para hacer esto importamos la libreria FlipTable de Jack Wharton.  
+Finalizamos nuestro laboratorio modificando el archivo FeedReaderMain, donde modularizamos en una nueva funcion llamada feedsFromSubscriptions que se encarga de parsear el JSON de suscripciones, descargar los feeds, parsearlos y crear los objetos Feed. Tambien la main modificada soporta suscripciones de tipo reddit (ademas de las tipo rss).  
+
+## Observaciones
+### Forma de ejecucion  
+- `mvn compile exec:java -Dexec.mainClass=FeedReaderMain -Dexec.args="" --quiet -T 1C` (ver articulos)
+- `mvn compile exec:java -Dexec.mainClass=FeedReaderMain -Dexec.args=" -ne -rh" --quiet -T 1C` (ver random heuristic)
+- `mvn compile exec:java -Dexec.mainClass=FeedReaderMain -Dexec.args=" -ne -qh" --quiet -T 1C` (ver quick heuristic)
 
 
-
-## Observaciones 
 
